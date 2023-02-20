@@ -45,4 +45,11 @@ func main() {
 	} else {
 		fmt.Println("Value not found in cache..")
 	}
+
+	c.Set("wfb", []string{"SAdsa", "SAdsa", "SAdjjsa"}, cache.DefaultExpiration)
+
+	val, found = c.Get("wfb")
+	for i, v := range val {
+		fmt.Println(v)
+	}
 }
