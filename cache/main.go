@@ -25,6 +25,7 @@ func main() {
 	// } else {
 	// 	fmt.Println("Value not added to cache.")
 	// }
+
 	start := time.Now()
 	c.Add("intVal", 10, cache.DefaultExpiration)
 	c.DecrementInt("intVal", 2)
@@ -37,19 +38,10 @@ func main() {
 	}
 	fmt.Println("Time taken to execute:", time.Since(start))
 
-	//err := c.Add("intVal", S12, cache.DefaultExpiration)
-	c.Set("intVal", 12, cache.DefaultExpiration)
-	val, found = c.Get("intVal")
-	if found {
-		fmt.Println("Value after decrement is:", val)
+	err := c.SaveFile("docs.gob")
+	if err != nil {
+		fmt.Println(err)
 	} else {
-		fmt.Println("Value not found in cache..")
-	}
-
-	c.Set("wfb", []string{"SAdsa", "SAdsa", "SAdjjsa"}, cache.DefaultExpiration)
-
-	val, found = c.Get("wfb")
-	for i, v := range val {
-		fmt.Println(v)
+		fmt.Println("Saved to file successfully")
 	}
 }

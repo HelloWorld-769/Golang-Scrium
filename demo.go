@@ -1,16 +1,23 @@
 package main
 
-import (
-	"fmt"
+import "fmt"
+
+const (
+	January int = 3 + iota
+	February
+	March
+	April
+	May
+	June
+	July
+	August
+	September
+	October
+	November
+	December
 )
 
-type person struct {
-	name string
-	age  int
-}
-
 func main() {
-	s := make(map[int]string)
+	fmt.Println(January, February, March, April, May, June, July, August, September, October, November, December)
 
-	fmt.Println(s)
 }
