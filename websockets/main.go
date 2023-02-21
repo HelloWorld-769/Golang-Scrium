@@ -3,9 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
-	"math/rand"
 	"net/http"
-	"time"
 
 	"github.com/gorilla/websocket"
 )
@@ -56,11 +54,6 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-func rollDice() int {
-	rand.Seed(time.Now().UnixNano())
-	return rand.Intn(7)
-}
-
 //Simple chat application in golang
 func main() {
 	clients := make(map[*websocket.Conn]bool)
@@ -69,7 +62,6 @@ func main() {
 
 	connection := make(chan *websocket.Conn)
 
-	data := make(chan int)
 	connCount := 0
 
 	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
@@ -91,7 +83,6 @@ func main() {
 		fmt.Println(connCount)
 		clients[conn] = true
 		fmt.Println(clients)
-		val := rollDice()
 
 		for isOpen {
 			_, msg, err := conn.ReadMessage()
@@ -106,7 +97,6 @@ func main() {
 			fmt.Println("Message sent:", string(msg))
 			broadcast <- msg
 			connection <- conn
-			data <- val
 		}
 	})
 
@@ -116,8 +106,6 @@ func main() {
 		for {
 			msg := <-broadcast
 			conn := <-connection
-			val := <-data
-			fmt.Println("Data received", val)
 			for client := range clients {
 				if client == conn {
 					continue
