@@ -56,6 +56,7 @@ var upgrader = websocket.Upgrader{
 
 //Simple chat application in golang
 func main() {
+	fmt.Println("Working with simple chat app using sockets..")
 	clients := make(map[*websocket.Conn]bool)
 
 	broadcast := make(chan []byte)

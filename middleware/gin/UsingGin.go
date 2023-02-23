@@ -46,7 +46,10 @@ func main() {
 	r.GET("/", welcomeHandler)
 	r.GET("/get", getAlbums)
 
-	r.POST("/post", postMiddleWare, postAlbum)
+	//r.POST("/post", postMiddleWare, postAlbum)
+	r.POST("/post", handleBody)
+	r.POST("/form", handleForm)
+	r.GET("/fun", fun)
 	r.Run(":3000")
 }
 func welcomeHandler(c *gin.Context) {
@@ -59,6 +62,8 @@ func getAlbums(c *gin.Context) {
 }
 
 func postAlbum(c *gin.Context) {
+
+	//passing data from middleware to function post albums and then retreiving it using c.Get("key")
 	reqBody, exists := c.Get("body")
 	if !exists {
 		fmt.Println("value do not exist")
@@ -68,4 +73,31 @@ func postAlbum(c *gin.Context) {
 	c.JSON(http.StatusOK, albums)
 	return
 
+}
+
+func handleBody(c *gin.Context) {
+	var newAlbum album
+	err := c.BindJSON(&newAlbum)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	fmt.Println("Body is:", newAlbum)
+	c.JSON(http.StatusOK, newAlbum)
+
+}
+func handleForm(c *gin.Context) {
+	formRes := c.PostForm("username")
+	fmt.Println(formRes)
+
+}
+func fun(c *gin.Context) {
+	var temp album
+	err := c.BindQuery(&temp)
+	if err != nil {
+		fmt.Println("error is ", err)
+	}
+	fmt.Println(temp)
 }
