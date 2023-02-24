@@ -1,16 +1,12 @@
 package main
 
-import "fmt"
-
-const (
-	January = iota
-	feb     = iota
-)
-const (
-	a = iota
+import (
+	"fmt"
+	"time"
 )
 
 func main() {
-	fmt.Println(January, feb, a)
+	tym := time.Now()
 
+	fmt.Println(time.Until(tym))
 }

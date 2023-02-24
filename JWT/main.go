@@ -21,7 +21,7 @@ func main() {
 	fmt.Println("Claims is:", claim)
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claim)
-
+	fmt.Println("sdfbfjsdbfjbsbd:", *jwt.SigningMethodHS256)
 	fmt.Println("Token is:", *token)
 	secretKey := []byte("Hello World")
 	tokenString, err := token.SignedString(secretKey)
@@ -31,7 +31,7 @@ func main() {
 	fmt.Println("Token string is:", tokenString)
 
 	//Decode the token String
-	parsedToken, err := jwt.ParseWithClaims(tokenString, &claim, func(token *jwt.Token) (interface{}, error) {
+	parsedToken, err := jwt.ParseWithClaims(tokenString, claim, func(token *jwt.Token) (interface{}, error) {
 
 		_, ok := token.Method.(*jwt.SigningMethodHMAC)
 		if !ok {
