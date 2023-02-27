@@ -25,6 +25,7 @@ var currentConnection = make(chan *websocket.Conn)
 //Creating a  websocket
 func CreatingConn(w http.ResponseWriter, r *http.Request) {
 
+	//pass token as parms in url string..
 	token := r.URL.Query()["token"]
 	tokenString := ""
 	fmt.Println("Header are :", r.Header)

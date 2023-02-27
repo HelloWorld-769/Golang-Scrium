@@ -28,5 +28,5 @@ func main() {
 
 	go cont.StartListner()
 
-	log.Fatal(http.ListenAndServe(":8080", mux))
+	log.Fatal(http.ListenAndServe(":8000", mux))
 }
