@@ -21,6 +21,10 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	user.Id = len(users) + 1
 	err = user.Validate()
+	if err != nil {
+		w.Write([]byte(fmt.Sprint(err)))
+		return
+	}
 	users = append(users, user)
 	services.SavetoFile(users)
 	w.Write([]byte("User registered Sucessfully"))
@@ -53,6 +57,10 @@ func UpdateHandler(w http.ResponseWriter, r *http.Request) {
 			_ = json.NewDecoder(r.Body).Decode(&user)
 			user.Id = len(users) + 1
 			err = user.Validate()
+			if err != nil {
+				fmt.Println("shfsjffjsd", err)
+				break
+			}
 			users = append(users, user)
 			services.SavetoFile(users)
 			return
