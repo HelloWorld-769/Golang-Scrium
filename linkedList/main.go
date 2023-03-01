@@ -42,8 +42,8 @@ func (l *List) printList() {
 // not working
 func (l *List) reverse() {
 	curr := l.head
-	var prev *Node = nil
-	var next *Node = nil
+	var prev *Node
+	var next *Node
 
 	for curr != nil {
 		next = curr.next
